@@ -25,3 +25,19 @@ async def get_apod():
         response = await client.get(url)
         data = response.json()
     return data
+
+    from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/")
+def read_root():
+    return {
+        "status": "success",
+        "api": "Visualiza API",
+        "version": "1.0.0",
+        "author": "Ana Cecília Seixas",
+        "message": "👋 Seja bem-vindo(a)! Esta é a API oficial do desafio Visualiza 🚀"
+    }
+
+
