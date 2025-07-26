@@ -1,23 +1,31 @@
-# Visualiza API 🚀
+# 🚀 Visualiza Challenge
 
-Este é um projeto de API REST em Python com FastAPI, criado como desafio prático. A aplicação consome a API pública da NASA e entrega informações astronômicas do dia.
-
----
-
-## 🌐 Endpoints disponíveis
-
-| Método | Rota      | Descrição                                 |
-|--------|-----------|--------------------------------------------|
-| GET    | `/`       | Mensagem de boas-vindas                    |
-| GET    | `/health` | Verifica se a API está funcionando         |
-| GET    | `/apod`   | Retorna os dados da imagem astronômica do dia da NASA |
+Aplicação desenvolvida para o desafio técnico da Visualiza, com foco em boas práticas de APIs modernas, CI/CD e Docker.
 
 ---
 
-## ⚙️ Como rodar o projeto localmente
+## ✨ Visão Geral
 
-### 1. Clone o repositório ou baixe os arquivos
+Esta API consome dados da [NASA APOD API](https://api.nasa.gov/) e expõe informações astronômicas de forma estruturada e moderna, utilizando **FastAPI**, **Docker** e **GitHub Actions**.
+
+---
+
+## 🛠 Tecnologias utilizadas
+
+- 🔹 Python 3.11+
+- 🔹 FastAPI
+- 🔹 HTTPX
+- 🔹 Docker & Docker Compose
+- 🔹 GitHub Actions
+- 🔹 Uvicorn
+
+---
+
+## 🔧 Como rodar localmente
+
+### 1️⃣ Clonar o repositório
 
 ```bash
-git clone https://github.com/seu-usuario/visualiza-challenge.git
+git clone https://github.com/ceciliaseixas/visualiza-challenge.git
 cd visualiza-challenge
+
