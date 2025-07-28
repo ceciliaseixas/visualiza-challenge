@@ -35,3 +35,9 @@ cd visualiza-challenge
 
 # Build da imagem e execução do container
 docker-compose up --build
+
+## 💜 Agradecimento
+
+Agradeço por dedicar seu tempo para conhecer este projeto.  
+A Visualiza API foi desenvolvida como parte de um desafio técnico, buscando boas práticas e clareza.  
+
