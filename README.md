@@ -73,6 +73,12 @@ pytest tests --import-mode=importlib
 ### Dentro do container Docker
 docker-compose exec api pytest tests --import-mode=importlib
 
+#### No CI (GitHub Actions)
+O workflow acionado em cada push na `main`:
+1. Roda `pytest tests --import-mode=importlib`
+2. Se passar, builda e faz push da imagem Docker (tags `latest` e `SHA`)
+
+
 ## 📦 Endpoints Disponíveis
 
 | Método | Rota      | Descrição                                         |
