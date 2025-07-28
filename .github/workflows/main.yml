@@ -1,13 +1,44 @@
-name: CI - Build e Push da Imagem Docker
+name: CI - Build e Push da Imagem Docker + Testes
 
 on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  build:
+  tests:
+    name: 🧪 Rodar testes com pytest
     runs-on: ubuntu-latest
+
+    steps:
+      - name: 🔄 Checkout do código
+        uses: actions/checkout@v3
+
+      - name: 🐍 Configurar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: 📦 Instalar dependências
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest
+
+      - name: ✅ Rodar testes com pytest
+        run: |
+          export PYTHONPATH=.
+          pytest src/tests
+
+  build:
+    name: 🐳 Build e Push Docker
+    runs-on: ubuntu-latest
+    needs: tests  # Só faz build se os testes passarem
 
     steps:
       - name: Checkout do código
