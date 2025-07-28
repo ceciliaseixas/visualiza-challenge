@@ -2,45 +2,48 @@ name: CI - Test & Build & Push
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
 
 jobs:
   test:
-    name: 🧪 Run Tests
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout do código
         uses: actions/checkout@v3
 
-      - name: Set up Python 3.11
+      - name: Setup Python 3.11
         uses: actions/setup-python@v4
         with:
-          python-version: '3.11'
+          python-version: "3.11"
 
-      - name: Install dependencies
-        run: pip install --upgrade pip && pip install -r requirements.txt
+      # Exporta src para PYTHONPATH no ambiente do runner
+      - name: Ajustar PYTHONPATH
+        run: echo "PYTHONPATH=src" >> $GITHUB_ENV
 
-      - name: Run pytest
+      - name: Instalar dependências
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest pytest-asyncio
+
+      - name: Rodar testes
         run: pytest tests --import-mode=importlib
 
-  docker:
-    name: 🐳 Build & Push Docker Image
+  build-and-push:
     needs: test
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout do código
         uses: actions/checkout@v3
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Login to Docker Hub
+      - name: Login no DockerHub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build and push Docker image
+      - name: Build e Push da imagem Docker
         uses: docker/build-push-action@v5
         with:
           context: .
