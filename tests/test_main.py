@@ -29,6 +29,7 @@ def test_health_ok():
 @pytest.mark.asyncio
 @patch("src.main.httpx.AsyncClient.get")
 async def test_apod_success(mock_get):
+    # Configurando o mock da resposta da NASA
     mock_data = {
         "title": "Mock Title",
         "explanation": "Mock explanation",
@@ -40,6 +41,10 @@ async def test_apod_success(mock_get):
         def raise_for_status(self): pass
 
     mock_get.return_value = MockResp()
-    result = await app.router.routes[2].endpoint()
-    assert result == mock_data
+
+    # Usamos o TestClient para chamar via HTTP a rota /apod
+    response = client.get("/apod")
+    assert response.status_code == 200
+    assert response.json() == mock_data
+
 
