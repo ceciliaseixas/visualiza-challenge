@@ -1,4 +1,7 @@
+import pytest
 from fastapi.testclient import TestClient
+from unittest.mock import patch
+
 from src.main import app
 
 client = TestClient(app)
@@ -6,7 +9,6 @@ client = TestClient(app)
 def test_root_status_success():
     response = client.get("/")
     assert response.status_code == 200
-    # Verifica o campo "status"
     assert response.json().get("status") == "success"
 
 def test_root_keys_present():
@@ -19,14 +21,10 @@ def test_root_message_contains_visualiza():
     message = client.get("/").json().get("message", "")
     assert "Visualiza" in message
 
-def test_health():
-    response = client.get("/health")
-    assert response.status_code == 200
-    assert response.json() == {"status": "ok"}
-
-# Teste /apod com mock da NASA
-import pytest
-from unittest.mock import patch
+def test_health_ok():
+    r = client.get("/health")
+    assert r.status_code == 200
+    assert r.json() == {"status": "ok"}
 
 @pytest.mark.asyncio
 @patch("src.main.httpx.AsyncClient.get")
@@ -42,7 +40,6 @@ async def test_apod_success(mock_get):
         def raise_for_status(self): pass
 
     mock_get.return_value = MockResp()
-
-    # Chama diretamente a função de rota
     result = await app.router.routes[2].endpoint()
     assert result == mock_data
+
