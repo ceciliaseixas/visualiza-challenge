@@ -25,7 +25,9 @@ jobs:
 
       - name: Rodar testes com pytest
         run: |
-          PYTHONPATH=src pytest src/tests --import-mode=importlib
+          pytest src/tests --import-mode=importlib
+        env:
+          PYTHONPATH: ./src
 
       - name: Login no DockerHub
         uses: docker/login-action@v3
@@ -38,6 +40,7 @@ jobs:
 
       - name: Push da imagem para o DockerHub
         run: docker push ${{ secrets.DOCKER_USERNAME }}/visualiza:latest
+
 
 
 
