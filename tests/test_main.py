@@ -1,36 +1,48 @@
-import sys
-import os
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
-from main import app
-from fastapi.testclient import TestClient
-
-client = TestClient(app)
-
-def test_root():
-    response = client.get("/")
-    assert response.status_code == 200
-    assert response.json()["status"] == "success"
 from fastapi.testclient import TestClient
 from src.main import app
 
 client = TestClient(app)
 
-def test_root():
+def test_root_status_success():
     response = client.get("/")
     assert response.status_code == 200
-    assert response.json()["status"] == "success"
+    # Verifica o campo "status"
+    assert response.json().get("status") == "success"
 
-def test_root_response_format():
-    response = client.get("/")
-    assert isinstance(response.json(), dict)
-    assert "status" in response.json()
-    assert "api" in response.json()
-    assert "version" in response.json()
-    assert "author" in response.json()
-    assert "message" in response.json()
+def test_root_keys_present():
+    data = client.get("/").json()
+    # Verifica que as chaves obrigatórias estão presentes
+    for key in ("status", "api", "version", "author", "message"):
+        assert key in data
 
-def test_root_message_content():
-    response = client.get("/")
-    message = response.json().get("message", "")
+def test_root_message_contains_visualiza():
+    message = client.get("/").json().get("message", "")
     assert "Visualiza" in message
+
+def test_health():
+    response = client.get("/health")
+    assert response.status_code == 200
+    assert response.json() == {"status": "ok"}
+
+# Teste /apod com mock da NASA
+import pytest
+from unittest.mock import patch
+
+@pytest.mark.asyncio
+@patch("src.main.httpx.AsyncClient.get")
+async def test_apod_success(mock_get):
+    mock_data = {
+        "title": "Mock Title",
+        "explanation": "Mock explanation",
+        "url": "http://example.com/image.jpg"
+    }
+    class MockResp:
+        status_code = 200
+        def json(self): return mock_data
+        def raise_for_status(self): pass
+
+    mock_get.return_value = MockResp()
+
+    # Chama diretamente a função de rota
+    result = await app.router.routes[2].endpoint()
+    assert result == mock_data
