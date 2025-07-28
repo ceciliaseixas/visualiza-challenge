@@ -45,15 +45,16 @@ Para que a API funcione corretamente, é necessário criar um arquivo `.env` na 
 NASA_API_KEY=voOtNzFfIwodIC9Oh32AvNigD43CbaQCPXm7H8cq
 
 ```
-### 🧪 Testes
+## 🧪 Como rodar os testes:
 
-Este projeto utiliza `pytest` para validar os endpoints da API. Os testes estão localizados no diretório `src/tests`.
+1. Clone este repositório:
+```bash
+git clone https://github.com/cecilia­seixas/visualiza-challenge.git
+cd visualiza-challenge
 
-#### ▶ Como rodar os testes:
+Os testes automatizados verificam se os principais endpoints estão funcionando corretamente e se a API responde como esperado.
 
-1. Ative o ambiente virtual:
-   ```bash
-   .venv\Scripts\activate
+```
 
 ### 💜 Agradecimento
 
