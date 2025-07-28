@@ -10,32 +10,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout do código
+      - name: 📦 Checkout do código
         uses: actions/checkout@v3
 
-      - name: Configurar ambiente Python
+      - name: 🐍 Configurar ambiente Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
 
-      - name: Instalar dependências
+      - name: 📥 Instalar dependências
         run: |
-          python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Rodar testes com pytest
+      - name: ✅ Rodar testes com pytest
         run: |
-          export PYTHONPATH=src
-          pytest src/tests
+          pytest src/tests --import-mode=importlib
 
-      - name: Login no DockerHub
+      - name: 🔐 Login no DockerHub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build da imagem Docker
+      - name: 🐳 Build da imagem Docker
         run: docker build -t ${{ secrets.DOCKER_USERNAME }}/visualiza:latest .
 
-      - name: Push da imagem para o DockerHub
+      - name: 🚀 Push da imagem para o DockerHub
         run: docker push ${{ secrets.DOCKER_USERNAME }}/visualiza:latest
+
