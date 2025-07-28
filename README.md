@@ -1,31 +1,37 @@
-# 🚀 Visualiza Challenge
+# 🚀 Visualiza API
 
-Aplicação desenvolvida para o desafio técnico da Visualiza, com foco em boas práticas de APIs modernas, CI/CD e Docker.
-
----
-
-## ✨ Visão Geral
-
-Esta API consome dados da [NASA APOD API](https://api.nasa.gov/) e expõe informações astronômicas de forma estruturada e moderna, utilizando **FastAPI**, **Docker** e **GitHub Actions**.
+API desenvolvida para o desafio **Visualiza**, utilizando **FastAPI** e **Docker**.
 
 ---
 
-## 🛠 Tecnologias utilizadas
+## ✨ Sobre
 
-- 🔹 Python 3.11+
-- 🔹 FastAPI
-- 🔹 HTTPX
-- 🔹 Docker & Docker Compose
-- 🔹 GitHub Actions
-- 🔹 Uvicorn
+Essa API foi construída com FastAPI e está dockerizada para facilitar o deploy e a execução em qualquer ambiente.  
+Ao acessar o endpoint raiz `/`, a API retorna uma mensagem de boas-vindas personalizada, com informações sobre a aplicação.
 
 ---
 
-## 🔧 Como rodar localmente
+## 🛠 Tecnologias
 
-### 1️⃣ Clonar o repositório
+- Python 3.8+
+- FastAPI
+- Uvicorn
+- Docker
+
+---
+
+## ▶ Como rodar o projeto
+
+### 🔧 Pré-requisitos:
+- [Python 3.8+](https://www.python.org/downloads/)
+- [Docker](https://www.docker.com/) instalado e rodando
+
+### 🐳 Usando Docker:
 
 ```bash
+# Clone o repositório
 git clone https://github.com/ceciliaseixas/visualiza-challenge.git
 cd visualiza-challenge
 
+# Build da imagem e execução do container
+docker-compose up --build
