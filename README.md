@@ -36,6 +36,7 @@ cd visualiza-challenge
 # Build da imagem e execução do container
 docker-compose up --build
 
+```
 ## 💜 Agradecimento
 
 Agradeço por dedicar seu tempo para conhecer este projeto.  
