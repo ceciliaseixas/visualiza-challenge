@@ -36,6 +36,19 @@ cd visualiza-challenge
 # Build da imagem e execução do container
 docker-compose up --build
 
+---
+
+### 🧪 Testes
+
+Este projeto utiliza `pytest` para validar os endpoints da API. Os testes estão localizados no diretório `src/tests`.
+
+#### ▶ Como rodar os testes:
+
+1. Ative o ambiente virtual:
+   ```bash
+   .venv\Scripts\activate
+
+
 ```
 ## 💜 Agradecimento
 
