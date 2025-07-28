@@ -37,7 +37,14 @@ cd visualiza-challenge
 docker-compose up --build
 
 ```
+### 📄 Variáveis de Ambiente
 
+Para que a API funcione corretamente, é necessário criar um arquivo `.env` na raiz do projeto com a seguinte variável:
+
+```env
+NASA_API_KEY=voOtNzFfIwodIC9Oh32AvNigD43CbaQCPXm7H8cq
+
+```
 ### 🧪 Testes
 
 Este projeto utiliza `pytest` para validar os endpoints da API. Os testes estão localizados no diretório `src/tests`.
@@ -47,8 +54,6 @@ Este projeto utiliza `pytest` para validar os endpoints da API. Os testes estão
 1. Ative o ambiente virtual:
    ```bash
    .venv\Scripts\activate
-
-
 
 ### 💜 Agradecimento
 
