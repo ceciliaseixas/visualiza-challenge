@@ -54,8 +54,10 @@ cd visualiza-challenge
 
 Os testes automatizados verificam se os principais endpoints estão funcionando corretamente e se a API responde como esperado.
 
-```
+Para executar os testes unitários da aplicação, utilize o comando abaixo a partir da raiz do projeto: 
+        pytest tests --import-mode=importlib
 
+```
 ### 💜 Agradecimento
 
 Agradeço por dedicar seu tempo para conhecer este projeto.  
