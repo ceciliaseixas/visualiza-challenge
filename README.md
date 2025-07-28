@@ -58,19 +58,19 @@ Este projeto utiliza `pytest` para validar os endpoints da API. Os testes estão
 
 #### ▶ Como rodar os testes:
 
-Local (fora do container)
+### Local (fora do container)
 
-# Opcional: crie e ative um ambiente virtual
+#### Opcional: crie e ative um ambiente virtual
 python -m venv .venv
 source .venv/bin/activate    # Windows: .venv\Scripts\activate
 
-# Instale dependências
+#### Instale dependências
 pip install -r requirements.txt
 
-# Execute os testes
+#### Execute os testes
 pytest tests --import-mode=importlib
 
-# Dentro do container Docker
+### Dentro do container Docker
 docker-compose exec api pytest tests --import-mode=importlib
 
 ## 📦 Endpoints Disponíveis
