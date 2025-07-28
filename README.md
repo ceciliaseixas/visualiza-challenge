@@ -49,8 +49,8 @@ Este projeto utiliza `pytest` para validar os endpoints da API. Os testes estão
    .venv\Scripts\activate
 
 
-```
-## 💜 Agradecimento
+
+### 💜 Agradecimento
 
 Agradeço por dedicar seu tempo para conhecer este projeto.  
 A Visualiza API foi desenvolvida como parte de um desafio técnico, buscando boas práticas e clareza.  
