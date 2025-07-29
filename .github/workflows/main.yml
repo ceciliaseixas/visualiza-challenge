@@ -27,7 +27,7 @@ jobs:
         run: pytest tests
 
       - name: Login no DockerHub
-        run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+        run: echo "${{secrets.DOCKERHUB_TOKEN}}" | docker login -u "${{secrets.DOCKERHUB_USERNAME}}" --password-stdin
 
       - name: Build da imagem Docker
         run: docker build -t anacecilias/visualiza-api .
