@@ -1,5 +1,7 @@
 # 🚀 Visualiza API
 
+[![CI](https://github.com/ceciliaseixas/visualiza-challenge/actions/workflows/main.yml/badge.svg)](https://github.com/ceciliaseixas/visualiza-challenge/actions/workflows/main.yml)
+
 API desenvolvida em **FastAPI**, empacotada com **Docker** e validada com **pytest**.
 
 ---
@@ -17,6 +19,33 @@ Integração com a [API APOD da NASA](https://api.nasa.gov/) para exibir os meta
 | GET    | `/`       | Mensagem de boas‑vindas e metadados da API        |
 | GET    | `/health` | Verificação de status (`{"status":"ok"}`)         |
 | GET    | `/apod`   | Metadados da “Imagem Astronômica do Dia” da NASA  |
+
+## 📡 Endpoint `/apod`
+
+Retorna os metadados da “Imagem Astronômica do Dia” fornecida pela NASA, incluindo título, explicação, data, autor, tipo de mídia e URLs da imagem (comum e em HD).
+
+```
+GET /apod
+
+```
+### 🔁 Exemplo de Resposta
+
+```json
+{
+  "copyright": "George Chatzifrantzis",
+  "date": "2025-07-29",
+  "explanation": "Is the Helix Nebula looking at you? No, not in any biological sense, but it does look quite like an eye...",
+  "hdurl": "https://apod.nasa.gov/apod/image/2507/Helix_GC_2332.jpg",
+  "media_type": "image",
+  "service_version": "v1",
+  "title": "A Helix Nebula Deep Field",
+  "url": "https://apod.nasa.gov/apod/image/2507/Helix_GC_1080.jpg"
+}
+```
+
+### ⚠️ Possíveis Erros
+
+- `503`: Erro ao tentar se comunicar com a API da NASA
 
 ---
 
@@ -79,7 +108,7 @@ NASA_API_KEY=[sua_chave_da_api]
 ```
 ### 🧪 Testes
 
-Este projeto utiliza `pytest` para validar os endpoints da API. Os testes estão localizados no diretório `src/tests`.
+Este projeto utiliza `pytest` para validar os endpoints da API. Os testes estão localizados no diretório `tests/`.
 
 #### ▶ Como rodar os testes:
 
