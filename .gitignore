@@ -1,0 +1,18 @@
+# Ambiente virtual
+.venv/
+venv/
+
+# Arquivos de cache
+__pycache__/
+*.py[cod]
+*.pyc
+
+# Arquivos de log e env
+*.log
+.env
+
+# VSCode configs
+.vscode/
+
+# Arquivos de testes compilados
+tests/__pycache__/
