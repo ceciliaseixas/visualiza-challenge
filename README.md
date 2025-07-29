@@ -103,8 +103,6 @@ O workflow acionado em cada push na `main`:
 1. Roda `pytest tests --import-mode=importlib`
 2. Se passar, builda e faz push da imagem Docker (tags `latest` e `SHA`)
 
-<!-- Trigger CI -->
-
 ### 💜 Agradecimento
 
 Agradeço por dedicar seu tempo para conhecer este projeto.
