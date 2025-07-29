@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build:
+  test-build-push:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,10 +16,11 @@ jobs:
       - name: Setup Python 3.11
         uses: actions/setup-python@v4
         with:
-          python-version: '3.11'
+          python-version: "3.11"
 
       - name: Instalar dependências
         run: |
+          pip install --upgrade pip
           pip install -r requirements.txt
           pip install pytest pytest-asyncio
 
@@ -27,10 +28,13 @@ jobs:
         run: pytest tests
 
       - name: Login no DockerHub
-        run: echo "${{secrets.DOCKERHUB_TOKEN}}" | docker login -u "${{secrets.DOCKERHUB_USERNAME}}" --password-stdin
+        run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
       - name: Build da imagem Docker
-        run: docker build -t anacecilias/visualiza-api .
+        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/visualiza-api .
 
       - name: Push para o DockerHub
-        run: docker push anacecilias/visualiza-api
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/visualiza-api
+
+
+
