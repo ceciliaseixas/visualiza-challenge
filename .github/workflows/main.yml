@@ -17,15 +17,14 @@ jobs:
         with:
           python-version: "3.11"
 
-      # Exporta src para PYTHONPATH no ambiente do runner
-      - name: Ajustar PYTHONPATH
-        run: echo "PYTHONPATH=src" >> $GITHUB_ENV
-
       - name: Instalar dependências
         run: |
           pip install --upgrade pip
           pip install -r requirements.txt
           pip install pytest pytest-asyncio
+
+      - name: Ajustar PYTHONPATH
+        run: echo "PYTHONPATH=src" >> $GITHUB_ENV
 
       - name: Rodar testes
         run: pytest tests --import-mode=importlib
@@ -37,6 +36,11 @@ jobs:
       - name: Checkout do código
         uses: actions/checkout@v3
 
+      - name: Setup Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
       - name: Login no DockerHub
         uses: docker/login-action@v3
         with:
@@ -46,16 +50,6 @@ jobs:
       - name: Build e Push da imagem Docker
         uses: docker/build-push-action@v5
         with:
-          context: .
-          file: Dockerfile
+          context: 
           push: true
-          tags: |
-            ${{ secrets.DOCKER_USERNAME }}/visualiza-challenge:latest
-            ${{ secrets.DOCKER_USERNAME }}/visualiza-challenge:${{ github.sha }}
-
-
-
-
-
-
-
+          tags: ceciliaseixas/visualiza-api:latest

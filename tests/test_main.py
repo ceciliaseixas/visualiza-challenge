@@ -1,50 +1,57 @@
 import pytest
 from fastapi.testclient import TestClient
-from unittest.mock import patch
+from src.main import app  # Agora importa direto de main.py, não de src.main
 
-from src.main import app
+from unittest.mock import patch
 
 client = TestClient(app)
 
-def test_root_status_success():
+def test_root():
     response = client.get("/")
     assert response.status_code == 200
-    assert response.json().get("status") == "success"
+    assert "status" in response.json()
+    assert response.json()["status"] == "success"
 
-def test_root_keys_present():
-    data = client.get("/").json()
-    # Verifica que as chaves obrigatórias estão presentes
-    for key in ("status", "api", "version", "author", "message"):
-        assert key in data
+def test_root_response_format():
+    response = client.get("/")
+    body = response.json()
+    assert isinstance(body, dict)
+    assert "status" in body
+    assert "api" in body
+    assert "version" in body
+    assert "author" in body
+    assert "message" in body
 
-def test_root_message_contains_visualiza():
-    message = client.get("/").json().get("message", "")
+def test_root_message_content():
+    response = client.get("/")
+    message = response.json().get("message", "")
     assert "Visualiza" in message
 
-def test_health_ok():
-    r = client.get("/health")
-    assert r.status_code == 200
-    assert r.json() == {"status": "ok"}
+def test_health():
+    response = client.get("/health")
+    assert response.status_code == 200
+    assert response.json() == {"status": "ok"}
 
+@patch("main.httpx.AsyncClient.get")  # <- Aqui o patch mudou!
 @pytest.mark.asyncio
-@patch("src.main.httpx.AsyncClient.get")
 async def test_apod_success(mock_get):
-    # Configurando o mock da resposta da NASA
+    # Simula a resposta da API da NASA
     mock_data = {
-        "title": "Mock Title",
-        "explanation": "Mock explanation",
+        "title": "Test APOD",
+        "explanation": "Example",
         "url": "http://example.com/image.jpg"
     }
-    class MockResp:
-        status_code = 200
-        def json(self): return mock_data
-        def raise_for_status(self): pass
-
-    mock_get.return_value = MockResp()
-
-    # Usamos o TestClient para chamar via HTTP a rota /apod
-    response = client.get("/apod")
-    assert response.status_code == 200
-    assert response.json() == mock_data
-
-
+    class MockResponse:
+        def __init__(self):
+            self.status_code = 200
+        def json(self):
+            return mock_data
+        def raise_for_status(self):
+            pass
+    mock_get.return_value = MockResponse()
+    
+    # Faz a chamada async usando o TestClient
+    # TestClient não suporta await direto, então você pode testar como função separada
+    from main import get_apod
+    result = await get_apod()
+    assert result == mock_data
